@@ -1,5 +1,7 @@
 package code.review.universe;
 
+import com.github.javaparser.ast.observer.Observable;
+
 public class GridAdministrator extends GridRules {
     private boolean[][] boolBoard;
     private int[][] boolBoardCounter;
@@ -55,6 +57,8 @@ public class GridAdministrator extends GridRules {
     }
 
     private boolean getNextValueForCell(int rowIndex, int columnIndex) {
-        return GridRules.cellShouldLiveNextRound(this.boolBoard[rowIndex][columnIndex],this.boolBoardCounter[rowIndex][columnIndex]);
+        boolean currentValue = this.boolBoard[rowIndex][columnIndex];
+        int neighbourhoodCount = this.boolBoardCounter[rowIndex][columnIndex];
+        return GridRules.cellShouldLiveNextRound(currentValue,neighbourhoodCount);
     }
 }

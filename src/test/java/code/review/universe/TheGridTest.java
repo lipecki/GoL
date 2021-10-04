@@ -12,11 +12,16 @@ class TheGridTest {
         boolean[][] observableUniverse = grid.getObservableUniverse();
         Assertions.assertEquals(observableUniverse.length,lengthAndWidth);
         Assertions.assertEquals(observableUniverse[0].length,lengthAndWidth);
-        for (boolean[] rows : observableUniverse) {
 
-            for (boolean cell: rows) {
-                Assertions.assertFalse(cell);
-            }
-        }
+
+    }
+
+    @Test
+    void getZeroObservableUniverse() {
+        int lengthAndWidth = 0;
+        TheGrid grid = new TheGrid(lengthAndWidth);
+        boolean[][] observableUniverse = grid.getObservableUniverse();
+        Assertions.assertEquals(observableUniverse.length,TheGrid.MIN_SIZE);
+        Assertions.assertEquals(observableUniverse[0].length,TheGrid.MIN_SIZE);
     }
 }

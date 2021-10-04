@@ -9,9 +9,9 @@ import java.util.Properties;
 
 public class GameOfLifeProcessor {
     public static void main(String[] args){
-        Properties properties  = PropertiesHelper.getProperties(args);
-        int boardWidth = Integer.parseInt((String) properties.get("Grid Width"));
-        int boardHeight = Integer.parseInt((String) properties.get("Grid Height"));
+        Properties properties  = PropertiesHelper.getProperties();
+        int boardWidth =  Integer.max(Integer.parseInt((String) properties.get("Grid Width")),4);
+        int boardHeight = Integer.max(Integer.parseInt((String) properties.get("Grid Height")),4);
 
         TheGrid theGrid = new TheGrid(boardWidth,boardHeight);
         GridAdministrator administrator = new GridAdministrator(theGrid);
@@ -19,12 +19,9 @@ public class GameOfLifeProcessor {
         // Run for some multiple of 1/2 second
         for (int time = 0; time < 20; time++) {
             administrator.tick();
+            System.out.println(String.format("---%d---",time));
             for (boolean[] row : administrator.getUpdatedGrid()) {
-                for (boolean b : row) {
-
-                    System.out.print(b ? "X" : "O" );
-                }
-                System.out.println(String.format("---%d---",time));
+                System.out.println(Arrays.toString(row));
             }
             try {
                 Thread.sleep(500);
