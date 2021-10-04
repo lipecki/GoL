@@ -1,14 +1,18 @@
 plugins {
+    id 'application'
     id 'war'
     id 'groovy'
     id 'java'
 }
 
-group 'org.example'
+application {
+    mainClassName = 'code.review.GameOfLifeProcessor'
+}
+
+group 'the.grid'
 version '1.0-SNAPSHOT'
 
 repositories {
-    mavenCentral()
     mavenCentral()
 }
 
@@ -22,3 +26,15 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.jar {
+    manifest {
+        attributes "Main-Class": "code.review.GameOfLifeProcessor"
+    }
+    duplicatesStrategy = 'include'
+
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
