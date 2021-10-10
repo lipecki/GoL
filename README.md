@@ -5,10 +5,11 @@ The actual grid size will be set randomly.
 
 The program will
 1. randomly initiate grid size, using your settings as an upper limit; 
-2. initiate live cells and start the game;
-3. run for 10 seconds;
-4. update the grid every 500 ms; and 
-5. print lists of boolean values to the console.
+2. initiate live cells,
+3. start the game;
+4. print cell values to the console;
+5. update the grid every 500 ms; and 
+6. run for 10 seconds.
 
 Please note that if you are looking for a beautiful rendering of the game you will be greatly underwhelmed:
 the boolean outputs represent cells on the grid, where true indicates a live cell and false indicates a dead cell.
