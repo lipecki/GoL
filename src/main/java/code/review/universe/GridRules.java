@@ -7,12 +7,13 @@ public class GridRules {
      * @return whether cell should live or not
      */
     public static boolean cellShouldLiveNextRound(boolean cellLives, int neighbourhoodLiveCount) {
-        // Do not return from the dead
+        // Live cell rules
         if (cellLives) {
-            // underpopulation or overpopulation
-            // Die
+            // Continue living with two or three living neighbours
             return neighbourhoodLiveCount >= 3 && neighbourhoodLiveCount <= 4;
+
+        // Dead cell rules
+        // Resurrection at three living neighbours
         } else return neighbourhoodLiveCount == 3;
-        // Live and let live
     }
 }

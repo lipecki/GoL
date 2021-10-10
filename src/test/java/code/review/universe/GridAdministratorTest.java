@@ -156,6 +156,7 @@ class GridAdministratorTest {
                 {false,false,false,true,true,false},
                 {false,false,false,false,false,false}
         };
+
         // Mock return value
         when(grid.getObservableUniverse()).thenReturn(mockArray1);
         GridAdministrator administrator = new GridAdministrator(grid);
@@ -168,7 +169,6 @@ class GridAdministratorTest {
         for (int rowIndex = 0; rowIndex < updatedGrid.length; rowIndex++) {
             Assertions.assertArrayEquals(updatedGrid[rowIndex],mockArray2[rowIndex]);
         }
-
     }
 
     @Test
@@ -195,6 +195,7 @@ class GridAdministratorTest {
                 {false,false,false,true,true,false},
                 {false,false,false,false,false,false}
         };
+
         // Mock return value
         when(grid.getObservableUniverse()).thenReturn(mockArray2);
         GridAdministrator administrator = new GridAdministrator(grid);
@@ -205,8 +206,6 @@ class GridAdministratorTest {
         // The Beacon Oscillator
         for (int rowIndex = 0; rowIndex < updatedGrid.length; rowIndex++) {
             Assertions.assertArrayEquals(updatedGrid[rowIndex],mockArray1[rowIndex]);
-
         }
-
     }
 }
