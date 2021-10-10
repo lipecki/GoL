@@ -2,17 +2,15 @@ package code.review.universe;
 import java.util.Random;
 
 public class TheGrid {
-    private final int width;
-    private final int height;
-    private boolean[][] boolBoard;
-    static int MIN_SIZE = 4;
+    private final boolean[][] boolBoard;
+    static final int MIN_SIZE = 4;
 
     public TheGrid(int width, int height){
-        this.width = Integer.max(width,MIN_SIZE);
-        this.height = Integer.max(height,MIN_SIZE);
+        int width1 = Integer.max(width, MIN_SIZE);
+        int height1 = Integer.max(height, MIN_SIZE);
 
         // defaults to false initial values
-        this.boolBoard = new boolean[this.width][this.height];
+        this.boolBoard = new boolean[width1][height1];
         this.setInitialState();
     }
 
@@ -26,6 +24,7 @@ public class TheGrid {
     }
 
     public TheGrid(int width) {
+        // Square grid initiation
         this(width,width);
     }
 

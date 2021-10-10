@@ -1,64 +1,72 @@
 package code.review.universe;
 
-import com.github.javaparser.ast.observer.Observable;
-
 public class GridAdministrator extends GridRules {
-    private boolean[][] boolBoard;
-    private int[][] boolBoardCounter;
+    private final boolean[][] boolGrid;
+    private final int[][] neighbourhoodCounter;
 
     public GridAdministrator(TheGrid theGrid) {
-        this.boolBoard = theGrid.getObservableUniverse();
-        this.boolBoardCounter = new int[this.boolBoard.length][];
-        for (int rowIndex = 0; rowIndex < this.boolBoard.length; rowIndex++) {
-            this.boolBoardCounter[rowIndex] = new int[this.boolBoard[rowIndex].length];
+        this.boolGrid = theGrid.getObservableUniverse();
+        this.neighbourhoodCounter = new int[this.boolGrid.length][];
+        for (int rowIndex = 0; rowIndex < this.boolGrid.length; rowIndex++) {
+            this.neighbourhoodCounter[rowIndex] = new int[this.boolGrid[rowIndex].length];
         }
     }
 
+    /**
+     * Counts living cells in the neighbourhood by
+     * finding neighbourhood indexes (cell index +/-1 in two dimensions),
+     * excluding negative and out of bounds indexes,
+     * for every cell on the boolGrid, and then updating the neighbourhoodCounter
+     *
+     * @param rowIndex grid row index
+     * @param columnIndex grid column index
+     */
     private void setLiveCellCount(int rowIndex, int columnIndex) {
         int liveCellCount = 0;
 
         // Get row index boundaries
         int neighbourhoodRowStartIndex = Integer.max(0, rowIndex - 1);
-        int neighbourhoodRowBreakIndex = Integer.min(this.boolBoard.length,rowIndex + 2);
+        // + 2 row index for the sake of simpler loop syntax
+        int neighbourhoodRowBreakIndex = Integer.min(this.boolGrid.length, rowIndex + 2);
 
         // Get column index boundaries
         int neighbourhoodColumnStartIndex = Integer.max(0, columnIndex - 1);
-        int neighbourhoodColumnBreakIndex = Integer.min(this.boolBoard[rowIndex].length,columnIndex + 2);
+        int neighbourhoodColumnBreakIndex = Integer.min(this.boolGrid[rowIndex].length, columnIndex + 2);
 
         // Loop over neighbourhood cells, including given cell
-        for (int neighbourhoodRowIndex = neighbourhoodRowStartIndex; neighbourhoodRowIndex < neighbourhoodRowBreakIndex ; neighbourhoodRowIndex++) {
+        for (int neighbourhoodRowIndex = neighbourhoodRowStartIndex; neighbourhoodRowIndex < neighbourhoodRowBreakIndex; neighbourhoodRowIndex++) {
             for (int neighbourhoodColumnIndex = neighbourhoodColumnStartIndex; neighbourhoodColumnIndex < neighbourhoodColumnBreakIndex; neighbourhoodColumnIndex++) {
-                liveCellCount += this.boolBoard[neighbourhoodRowIndex][neighbourhoodColumnIndex] ? 1 : 0;
+                liveCellCount += this.boolGrid[neighbourhoodRowIndex][neighbourhoodColumnIndex] ? 1 : 0;
             }
         }
-        this.boolBoardCounter[rowIndex][columnIndex] = liveCellCount;
-    }
-
-    private void updateGrid(){
-        for (int rowIndex = 0; rowIndex < this.boolBoard.length; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < this.boolBoard[rowIndex].length; columnIndex++) {
-                this.boolBoard[rowIndex][columnIndex] = this.getNextValueForCell(rowIndex,columnIndex);
-            }
-        }
-    }
-
-    public boolean[][] getUpdatedGrid() {
-        updateGrid();
-        return this.boolBoard;
-    }
-
-    public void tick() {
-
-        for (int rowIndex = 0; rowIndex < this.boolBoard.length; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < this.boolBoard[rowIndex].length; columnIndex++) {
-                setLiveCellCount(rowIndex,columnIndex);
-            }
-        }
+        this.neighbourhoodCounter[rowIndex][columnIndex] = liveCellCount;
     }
 
     private boolean getNextValueForCell(int rowIndex, int columnIndex) {
-        boolean currentValue = this.boolBoard[rowIndex][columnIndex];
-        int neighbourhoodCount = this.boolBoardCounter[rowIndex][columnIndex];
+        boolean currentValue = this.boolGrid[rowIndex][columnIndex];
+        int neighbourhoodCount = this.neighbourhoodCounter[rowIndex][columnIndex];
         return GridRules.cellShouldLiveNextRound(currentValue,neighbourhoodCount);
+    }
+
+    private void updateGrid() {
+        for (int rowIndex = 0; rowIndex < this.boolGrid.length; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < this.boolGrid[rowIndex].length; columnIndex++) {
+                this.boolGrid[rowIndex][columnIndex] = this.getNextValueForCell(rowIndex, columnIndex);
+            }
+        }
+    }
+
+    private void tick() {
+        for (int rowIndex = 0; rowIndex < this.boolGrid.length; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < this.boolGrid[rowIndex].length; columnIndex++) {
+                this.setLiveCellCount(rowIndex, columnIndex);
+            }
+        }
+    }
+
+    public boolean[][] advanceTimeAndReturnNextFrame() {
+        tick();
+        updateGrid();
+        return this.boolGrid.clone();
     }
 }

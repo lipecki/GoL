@@ -18,9 +18,8 @@ public class GameOfLifeProcessor {
 
         // Run for some multiple of 1/2 second
         for (int time = 0; time < 20; time++) {
-            administrator.tick();
-            System.out.println(String.format("---%d---",time));
-            for (boolean[] row : administrator.getUpdatedGrid()) {
+            System.out.printf("---%d---%n",time);
+            for (boolean[] row : administrator.advanceTimeAndReturnNextFrame()) {
                 System.out.println(Arrays.toString(row));
             }
             try {

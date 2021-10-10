@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class TheGridTest {
 
     @Test
-    void getObservableUniverse() {
+    void getObservableUniverse_square_grid() {
         int lengthAndWidth = 5;
         TheGrid grid = new TheGrid(lengthAndWidth);
         boolean[][] observableUniverse = grid.getObservableUniverse();
@@ -17,7 +17,7 @@ class TheGridTest {
     }
 
     @Test
-    void getZeroObservableUniverse() {
+    void getObservableUniverse_less_than_minimum_dimensions() {
         int lengthAndWidth = 0;
         TheGrid grid = new TheGrid(lengthAndWidth);
         boolean[][] observableUniverse = grid.getObservableUniverse();
