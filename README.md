@@ -7,9 +7,9 @@ The program will
 1. randomly initiate grid size, using your settings as an upper limit; 
 2. initiate live cells,
 3. start the game;
-4. print boolean cell values to the console, every 500 ms; and 
+4. print cell values to the console (# = living; 0 = dead) , every 500 ms; and 
 5. run for 10 seconds.
 
 Please note that if you are looking for a beautiful rendering of the game you will be greatly underwhelmed:
-the boolean outputs represent cells on the grid, where true indicates a live cell and false indicates a dead cell.
+the outputs represent cells on the grid, where '#' represents a live cell and '0' represents a dead cell.
 
