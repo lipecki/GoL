@@ -28,17 +28,17 @@ class TheGridTest {
 
     @Test
     void getObservableUniverse_square_grid() {
-        int lengthAndWidth = 5;
-        TheGrid grid = new TheGrid(lengthAndWidth);
+        int heightAndWidth = 5;
+        TheGrid grid = new TheGrid(heightAndWidth);
         boolean[][] observableUniverse = grid.getObservableUniverse();
-        Assertions.assertEquals(observableUniverse.length,lengthAndWidth);
-        Assertions.assertEquals(observableUniverse[0].length,lengthAndWidth);
+        Assertions.assertEquals(observableUniverse.length,heightAndWidth);
+        Assertions.assertEquals(observableUniverse[0].length,heightAndWidth);
     }
 
     @Test
     void getObservableUniverse_less_than_minimum_dimensions() {
-        int lengthAndWidth = 0;
-        TheGrid grid = new TheGrid(lengthAndWidth);
+        int heightAndWidth = 0;
+        TheGrid grid = new TheGrid(heightAndWidth);
         boolean[][] observableUniverse = grid.getObservableUniverse();
         Assertions.assertEquals(observableUniverse.length,TheGrid.MIN_SIZE);
         Assertions.assertEquals(observableUniverse[0].length,TheGrid.MIN_SIZE);
@@ -57,7 +57,7 @@ class TheGridTest {
     void getObservableUniverse_negative_width(){
         int width = -1;
         int height = 1200;
-        TheGrid grid = new TheGrid(width, height);
+        TheGrid grid = new TheGrid(height,width);
         boolean[][] observableUniverse = grid.getObservableUniverse();
         Assertions.assertEquals(observableUniverse.length,TheGrid.MIN_SIZE);
         Assertions.assertEquals(observableUniverse[0].length,height);
@@ -66,7 +66,7 @@ class TheGridTest {
     void getObservableUniverse_negative_height(){
         int width = 1377;
         int height = -42;
-        TheGrid grid = new TheGrid(width, height);
+        TheGrid grid = new TheGrid(height,width);
         boolean[][] observableUniverse = grid.getObservableUniverse();
         Assertions.assertEquals(observableUniverse.length,width);
         Assertions.assertEquals(observableUniverse[0].length,TheGrid.MIN_SIZE);

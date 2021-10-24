@@ -20,7 +20,11 @@ public class GameOfLifeProcessor {
         for (int time = 0; time < 20; time++) {
             System.out.printf("---%d---%n",time);
             for (boolean[] row : administrator.advanceTimeAndReturnNextFrame()) {
-                System.out.println(Arrays.toString(row));
+                String[] cells = new String[row.length];
+                for (int col = 0; col < row.length; col++) {
+                    cells[col] = row[col] ? "#" : "0";
+                }
+                System.out.println(Arrays.toString(cells));
             }
             try {
                 Thread.sleep(500);
