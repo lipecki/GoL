@@ -14,7 +14,7 @@ public class PropertiesHelper {
         Properties properties = new Properties();
         try {
 
-            InputStream input = new FileInputStream("src/main/resources/config.properties");
+            InputStream input = new FileInputStream("./src/main/resources/config.properties");
             properties.load(input);
             int maxWidth = Integer.parseInt((String) properties.get("UNIVERSE_WIDTH_BOUNDARY"));
             int maxHeight = Integer.parseInt((String) properties.get("UNIVERSE_HEIGHT_BOUNDARY"));
