@@ -19,7 +19,7 @@ public class TheGrid {
         int height1 = Integer.max(height, MIN_SIZE);
 
         // defaults to false initial values
-        this.boolBoard = new boolean[width1][height1];
+        this.boolBoard = new boolean[height1][width1];
         this.randomizeInitialState();
     }
 
